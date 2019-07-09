@@ -1,9 +1,9 @@
 #!/bin/bash
-gdownpath=.
-dlDir = downloads
-mkdir $dlDir > /dev/null 2>&1
+scriptDir=`pwd`
+dlDir=downloads
+mkdir $dlDir  > /dev/null 2>&1
 cd $dlDir
-$gdownpath/gdown.pl $1 out.xz > /dev/null 2>&1
+$scriptDir/gdown.pl $1 out.xz > /dev/null 2>&1
 unxz out.xz > /dev/null 2>&1
 tar xf out > /dev/null 2>&1     
 dir=`tar tf out | head -1 | cut -f1 -d"/"`
