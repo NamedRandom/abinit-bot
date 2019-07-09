@@ -20,7 +20,6 @@ async def on_ready():
 async def abinit(ctx, arg):
     await ctx.send("running...")
     output = subprocess.check_output(["./abinit.sh",arg]).decode()
-    output = output[:output.index('/',20,)]+"/raw"+output[output.index('/',22):]
     print(output)
     await ctx.send(output)
 

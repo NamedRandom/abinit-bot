@@ -12,6 +12,6 @@ cd "$dir"
 abinit < tbase*_x.files > log 2> err
 if [ "$(wc -l err)" != "0 err" ]
 then
-	echo Error: `pastebinit -b pastebin.com err 2> /dev/null`
+	echo Error: `pastebinit err 2> /dev/null`
 fi
-echo Results: `pastebinit -b pastebin.com tbase*_*.out 2> /dev/null`
+echo Results: `pastebinit tbase*_*.out 2> /dev/null`
