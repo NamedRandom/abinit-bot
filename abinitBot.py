@@ -21,7 +21,7 @@ async def abinit(ctx, arg):
     await ctx.send("running...")
     output = subprocess.check_output(["./abinit.sh",arg]).decode()
     print(output)
-    await ctx.send(output)
+    await ctx.send(output+"\n <@259472979031883776>")
 
 @bot.command(pass_context=True)
 async def ping(ctx):
