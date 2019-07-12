@@ -45,7 +45,7 @@ async def gay(ctx):
 
 @bot.command(pass_context=True)
 async def stopCloud(ctx):
-    output = compute.instances().stop(proj,zone,inst)
+    output = compute.instances().stop(project=proj,zone=zone,resourceId=inst)
     print(output)
     await ctx.send(output)
 
