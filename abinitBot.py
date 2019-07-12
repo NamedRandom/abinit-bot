@@ -1,22 +1,11 @@
 import discord
 import os
-import googleapiclient.discovery
 import subprocess
 from discord.ext import commands
 import random
-'''
-compute = googleapiclient.discovery.build('compute', 'v1')
 
-proj='master-engine-246415'
-zone='us-east4-b'
-inst='kelvin-is-gay'
-'''
 
-description = '''An example bot to showcase the discord.ext.commands extension
-module.
-
-There are a number of utility commands being showcased here.'''
-bot = commands.Bot(command_prefix='?', description=description)
+bot = commands.Bot(command_prefix='?')
 
 @bot.event
 async def on_ready():
@@ -28,7 +17,7 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def abinit(ctx, arg):
     await ctx.send("running...")
-    output = subprocess.check_output(["./abinitMulti.sh",arg]).decode()
+    output = subprocess.check_output(["./abinit.sh",arg]).decode()
     print(output)
     await ctx.send(output+"\n <@259472979031883776>")
 
@@ -42,30 +31,25 @@ async def ping(ctx):
 @bot.command(pass_context=True)
 async def gay(ctx):
     await ctx.send("<@259472979031883776> is gay")
-'''
 @bot.command(pass_context=True)
 async def stopCloud(ctx):
-    output = compute.instances().stop(project=proj,zone=zone,resourceId=inst)
+    output = os.popen("/snap/bin/gcloud compute instances stop kelvin-is-gay --zone=us-east4-b").read()
     print(output)
-    await ctx.send(output)
-
+    await ctx.send("Stopped Cloud")
 @bot.command(pass_context=True)
 async def startCloud(ctx):
-    output = compute.instances().start(proj,zone,inst)
+    output = os.popen("/snap/bin/gcloud compute instances start kelvin-is-gay --zone=us-east4-b").read()
     print(output)
-    await ctx.send(output)
+    cmd = "\"tmux bash /home/asphyxia/bot.sh &\""
+    print(os.popen("gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read())
+    await ctx.send("Started Cloud")
 
 @bot.command(pass_context=True)
 async def cloudRun(ctx,arg):
-    coreCount = subprocess.check_output(["grep -c ^processor /proc/cpuinfo",arg]).decode()
-    if coreCount == 4:
-        startCloud()
-    else:
-        await ctx.send("running on cloud...")
-        output = subprocess.check_output(["./abinitMulti.sh",arg]).decode()
-        print(output)
-        await ctx.send(output+"\n <@259472979031883776>")
+    await ctx.send("running on cloud...")
+    output = subprocess.check_output(["./abinitMulti.sh",arg]).decode()
+    print(output)
+    await ctx.send(output+"\n <@259472979031883776>")
     stopCloud()
-'''     
 
 bot.run('NTk1MDQ5MzE2OTE4NDkzMTg1.XRlU4A.s8QJDYk9AuD4rMCeXS8AIsB457M') 
