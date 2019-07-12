@@ -4,13 +4,13 @@ import googleapiclient.discovery
 import subprocess
 from discord.ext import commands
 import random
-
+'''
 compute = googleapiclient.discovery.build('compute', 'v1')
 
 proj='master-engine-246415'
 zone='us-east4-b'
 inst='kelvin-is-gay'
-
+'''
 
 description = '''An example bot to showcase the discord.ext.commands extension
 module.
@@ -28,7 +28,7 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def abinit(ctx, arg):
     await ctx.send("running...")
-    output = subprocess.check_output(["./abinit.sh",arg]).decode()
+    output = subprocess.check_output(["./abinitMulti.sh",arg]).decode()
     print(output)
     await ctx.send(output+"\n <@259472979031883776>")
 
@@ -42,7 +42,7 @@ async def ping(ctx):
 @bot.command(pass_context=True)
 async def gay(ctx):
     await ctx.send("<@259472979031883776> is gay")
-
+'''
 @bot.command(pass_context=True)
 async def stopCloud(ctx):
     output = compute.instances().stop(project=proj,zone=zone,resourceId=inst)
@@ -66,6 +66,6 @@ async def cloudRun(ctx,arg):
         print(output)
         await ctx.send(output+"\n <@259472979031883776>")
     stopCloud()
-        
+'''     
 
 bot.run('NTk1MDQ5MzE2OTE4NDkzMTg1.XRlU4A.s8QJDYk9AuD4rMCeXS8AIsB457M') 
