@@ -40,7 +40,7 @@ async def stopCloud(ctx):
 async def startCloud(ctx):
     output = os.popen("/snap/bin/gcloud compute instances start kelvin-is-gay --zone=us-east4-b").read()
     print(output)
-    cmd = "\"tmux bash /home/asphyxia/bot.sh &\""
+    cmd = "\"nohup bash /home/asphyxia/bot.sh &\""
     print(os.popen("gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read())
     await ctx.send("Started Cloud")
 
