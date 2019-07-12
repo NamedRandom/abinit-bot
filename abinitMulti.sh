@@ -1,7 +1,7 @@
 #!/bin/bash
 scriptDir=`pwd`
 dlDir=downloads
-cores=12
+cores=`grep -c ^processor /proc/cpuinfo`
 mkdir $dlDir  > /dev/null 2>&1
 cd $dlDir
 $scriptDir/gdown.pl $1 out.xz > /dev/null 2>&1
