@@ -34,4 +34,29 @@ async def ping(ctx):
 async def gay(ctx):
     await ctx.send("<@259472979031883776> is gay")
 
+@bot.command(pass_context=True)
+async def stopCloud(ctx):
+    coreCount = subprocess.check_output(["grep -c ^processor /proc/cpuinfo",arg]).decode()
+    if coreCount == 8:
+        subprocess.check_output(["gcloud compute instances stop kelvin-is-gay",arg]).decode()
+    else await ctx.send("Cloud is off!")
+
+@bot.command(pass_context=True)
+async def startCloud(ctx):
+    print(subprocess.check_output(["gcloud compute instances start kelvin-is-gay",arg]).decode())
+    await ctx.send("hopefully it started")
+
+@bot.command(pass_context=True)
+async def cloudRun(ctx,arg):
+    coreCount = subprocess.check_output(["grep -c ^processor /proc/cpuinfo",arg]).decode()
+    if coreCount == 4:
+        startCloud()
+    else
+        await ctx.send("running on cloud...")
+        output = subprocess.check_output(["./abinitMulti.sh",arg]).decode()
+        print(output)
+        await ctx.send(output+"\n <@259472979031883776>")
+    stopCloud()
+        
+
 bot.run('NTk1MDQ5MzE2OTE4NDkzMTg1.XRlU4A.s8QJDYk9AuD4rMCeXS8AIsB457M') 
