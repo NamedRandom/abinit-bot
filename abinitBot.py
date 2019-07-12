@@ -1,7 +1,16 @@
 import discord
+import os
+import googleapiclient.discovery
 import subprocess
 from discord.ext import commands
 import random
+
+compute = googleapiclient.discovery.build('compute', 'v1')
+
+proj='master-engine-246415'
+zone='us-east4-b'
+inst='kelvin-is-gay'
+
 
 description = '''An example bot to showcase the discord.ext.commands extension
 module.
@@ -36,22 +45,22 @@ async def gay(ctx):
 
 @bot.command(pass_context=True)
 async def stopCloud(ctx):
-    coreCount = subprocess.check_output(["grep -c ^processor /proc/cpuinfo",arg]).decode()
-    if coreCount == 8:
-        subprocess.check_output(["gcloud compute instances stop kelvin-is-gay",arg]).decode()
-    else await ctx.send("Cloud is off!")
+    output = compute.instances().stop(proj,zone,inst)
+    print(output)
+    await ctx.send(output)
 
 @bot.command(pass_context=True)
 async def startCloud(ctx):
-    print(subprocess.check_output(["gcloud compute instances start kelvin-is-gay",arg]).decode())
-    await ctx.send("hopefully it started")
+    output = compute.instances().start(proj,zone,inst)
+    print(output)
+    await ctx.send(output)
 
 @bot.command(pass_context=True)
 async def cloudRun(ctx,arg):
     coreCount = subprocess.check_output(["grep -c ^processor /proc/cpuinfo",arg]).decode()
     if coreCount == 4:
         startCloud()
-    else
+    else:
         await ctx.send("running on cloud...")
         output = subprocess.check_output(["./abinitMulti.sh",arg]).decode()
         print(output)
