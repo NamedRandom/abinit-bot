@@ -39,9 +39,6 @@ async def ping(ctx):
     await ctx.send(latency)
 
 @bot.command(pass_context=True)
-async def gay(ctx):
-    await ctx.send("<@259472979031883776> is gay")
-@bot.command(pass_context=True)
 async def stopCloud(ctx):
     output = os.popen("timeout 30 /snap/bin/gcloud compute instances stop instance --zone=us-east4-b").read()
     print(output)
