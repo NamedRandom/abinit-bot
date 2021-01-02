@@ -43,7 +43,7 @@ async def gay(ctx):
     await ctx.send("<@259472979031883776> is gay")
 @bot.command(pass_context=True)
 async def stopCloud(ctx):
-    output = os.popen("timeout 30 /snap/bin/gcloud compute instances stop kelvin-is-gay --zone=us-east4-b").read()
+    output = os.popen("timeout 30 /snap/bin/gcloud compute instances stop instance --zone=us-east4-b").read()
     print(output)
     await ctx.send("Stopped Cloud")
     obj.cloudOn = False
@@ -51,34 +51,34 @@ async def stopCloud(ctx):
 @bot.command(pass_context=True)
 async def stop(ctx):
     await ctx.send("killing abinit...")
-    print(os.popen("timeout 15 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command=\"sudo killall abinit\"").read())
+    print(os.popen("timeout 15 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command=\"sudo killall abinit\"").read())
     await ctx.send("killed.")
 
 @bot.command(pass_context=True)
 async def startCloud(ctx):
     await ctx.send("Starting Cloud")
-    output = os.popen("timeout 30 /snap/bin/gcloud compute instances start kelvin-is-gay --zone=us-east4-b").read()
+    output = os.popen("timeout 30 /snap/bin/gcloud compute instances start instance --zone=us-east4-b").read()
     print(output)
     cmd = "\"tmux new-session -d /home/asphyxia/bot.sh\""
     print("sleeping 20")
     time.sleep(20)
     print("*yawn*")
-    print(os.popen("timeout 10 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read())
+    print(os.popen("timeout 10 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read())
     await ctx.send("Started Cloud")
     cmd = "\"sudo shutdown 5\""
-    print(os.popen("timeout 10 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read())
+    print(os.popen("timeout 10 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read())
     obj.cloudOn = True
 
 @bot.command(pass_context=True)
 async def startCloudBot(ctx):
     cmd = "\"/home/asphyxia/bot.sh\""
-    print(os.popen("timeout 10 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read())
+    print(os.popen("timeout 10 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read())
     await ctx.send("i hope it worked")
 
 @bot.command(pass_context=True)
 async def checkBot(ctx):
         cmd = "\"ps -A | grep python3\""
-        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read() 
+        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read() 
         if output !="":
             print(output)
             await ctx.send(output)
@@ -87,14 +87,14 @@ async def checkBot(ctx):
 @bot.command(pass_context=True)
 async def checkAbinit(ctx):
         cmd = "\"ps -A | grep abinit\""
-        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read() 
+        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read() 
         print(output)
         await ctx.send(output)
 
 @bot.command(pass_context=True)
 async def kill(ctx,pid):
         cmd = "\"sudo kill "+pid+"\""
-        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read() 
+        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kinstance --command="+cmd).read() 
         ctx.send("Killed")
 
 
@@ -102,10 +102,10 @@ async def kill(ctx,pid):
 async def iterations(ctx):
         output = "No current abinit"
         cmd = "\"/home/asphyxia/abinit-bot/folderName.sh "+obj.url+"\""
-        folder = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read() 
+        folder = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read() 
         await ctx.send("found folder as:"+folder)
         cmd = "\"cat /home/asphyxia/abinit-bot/downloads/"+re.sub('[^A-Za-z0-9]+', '', folder)+"/tbase*_*.out | grep Iteration\""
-        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read() 
+        output = os.popen("timeout 30 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read() 
         print(output)
         await ctx.send(output)
         return output
@@ -118,7 +118,7 @@ async def status(ctx):
 @bot.command(pass_context=True)
 async def clearFolder(ctx):
     cmd = "\"sudo rm -rf /home/asphyxia/abinit-bot/downloads\""
-    print(os.popen("timeout 15 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b kelvin-is-gay --command="+cmd).read())
+    print(os.popen("timeout 15 gcloud beta compute --project master-engine-246415 ssh --zone us-east4-b instance --command="+cmd).read())
     await ctx.send("**y e e t**")
         
 
@@ -131,4 +131,4 @@ async def cloudRun(ctx,arg):
 async def help(ctx):
     await ctx.send("?abinit to run non-cloud calc\n\nCloud Stuff:\n\tYou **MUST** start cloud calculations before local ones!!!\n\t?startCloud to start\n\t?stopCloud to kill cloud\n\t?cloudRun <link> to run cloud calculation")
 
-bot.run('NTk1MDQ5MzE2OTE4NDkzMTg1.XRlU4A.s8QJDYk9AuD4rMCeXS8AIsB457M') 
+bot.run('token') 
